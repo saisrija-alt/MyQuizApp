@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Quiz App</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Simple Quiz</h1>
+    <form method="POST">
+      {% for q in questions %}
+        <div class="question-block">
+          <p><strong>{{ loop.index }}. {{ q.question }}</strong></p>
+          {% for opt in q.options %}
+            <label>
+              <input type="radio" name="question-{{ loop.index0 }}" value="{{ opt }}"> {{ opt }}
+            </label><br>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <button type="submit">Submit</button>
+    </form>
+
+    {% if score is not none %}
+      <div class="result">
+        <h2>Your Score: {{ score }}/{{ questions|length }}</h2>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
